@@ -8,7 +8,6 @@ import (
 	"net/http"
 
 	"github.com/aglili/gopaystack/config"
-	"github.com/aglili/gopaystack/schema"
 )
 
 // InitializeTransaction initializes a new transaction with the provided request data.
@@ -28,7 +27,7 @@ import (
 //   - If the response body cannot be read.
 //   - If the API returns a non-200 status code.
 //   - If the response body cannot be unmarshalled to a TransactionResponse struct.
-func (c *Client) InitializeTransaction(req *schema.InitializeTransactionRequest) (*schema.TransactionResponse, error) {
+func (c *Client) InitializeTransaction(req *InitializeTransactionRequest) (*TransactionResponse, error) {
 	url := config.BaseURL + "/transaction/initialize"
 
 	payload, err := json.Marshal(req)
@@ -64,7 +63,7 @@ func (c *Client) InitializeTransaction(req *schema.InitializeTransactionRequest)
 	}
 
 	// parse the response
-	var transactionResponse schema.TransactionResponse
+	var transactionResponse TransactionResponse
 	err = json.Unmarshal(body, &transactionResponse)
 	if err != nil {
 		return nil, fmt.Errorf("error parsing response: %v", err)
@@ -84,7 +83,7 @@ func (c *Client) InitializeTransaction(req *schema.InitializeTransactionRequest)
 // Returns:
 //   - *schema.VerifyTransactionResponse: The response containing the transaction details.
 //   - error: An error object if an error occurred during the request or response parsing.
-func (c *Client) VerifyTransaction(reference string) (*schema.VerifyTransactionResponse, error) {
+func (c *Client) VerifyTransaction(reference string) (*VerifyTransactionResponse, error) {
 	url := fmt.Sprintf("%s/transaction/verify/%s", config.BaseURL, reference)
 
 	//create a new request
@@ -115,7 +114,7 @@ func (c *Client) VerifyTransaction(reference string) (*schema.VerifyTransactionR
 	}
 
 	// parse the response
-	var transactionResponse schema.VerifyTransactionResponse
+	var transactionResponse VerifyTransactionResponse
 	err = json.Unmarshal(body, &transactionResponse)
 	if err != nil {
 		return nil, fmt.Errorf("error parsing response: %v", err)
@@ -135,7 +134,7 @@ func (c *Client) VerifyTransaction(reference string) (*schema.VerifyTransactionR
 // Returns:
 //   - A pointer to a ListTransactionsResponse struct containing the response data.
 //   - An error if the request fails or the response cannot be decoded.
-func (c *Client) ListTransactions(req *schema.ListTransactionsRequest) (*schema.ListTransactionsResponse, error) {
+func (c *Client) ListTransactions(req *ListTransactionsRequest) (*ListTransactionsResponse, error) {
 	url := config.BaseURL + "/transaction"
 
 	payload, err := json.Marshal(req)
@@ -164,7 +163,7 @@ func (c *Client) ListTransactions(req *schema.ListTransactionsRequest) (*schema.
 
 	//decode the response
 
-	var listTransactionsResponse schema.ListTransactionsResponse
+	var listTransactionsResponse ListTransactionsResponse
 	err = json.NewDecoder(response.Body).Decode(&listTransactionsResponse)
 	if err != nil {
 		return nil, fmt.Errorf("error decoding response: %v", err)
@@ -191,7 +190,7 @@ func (c *Client) ListTransactions(req *schema.ListTransactionsRequest) (*schema.
 //       log.Fatalf("Error fetching transaction: %v", err)
 //   }
 //   fmt.Printf("Transaction details: %+v\n", transaction)
-func (c *Client) FetchTransaction(reference string) (*schema.VerifyTransactionResponse, error) {	
+func (c *Client) FetchTransaction(reference string) (*VerifyTransactionResponse, error) {	
 	url := fmt.Sprintf("%s/transaction/%s", config.BaseURL, reference)
 
 	//create a new request
@@ -222,7 +221,7 @@ func (c *Client) FetchTransaction(reference string) (*schema.VerifyTransactionRe
 	}
 
 	// parse the response
-	var transactionResponse schema.VerifyTransactionResponse
+	var transactionResponse VerifyTransactionResponse
 	err = json.Unmarshal(body, &transactionResponse)
 	if err != nil {
 		return nil, fmt.Errorf("error parsing response: %v", err)

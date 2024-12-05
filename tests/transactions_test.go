@@ -7,14 +7,14 @@ import (
 	"testing"
 
 	"github.com/aglili/gopaystack/config"
-	"github.com/aglili/gopaystack/pkg/paystack"
-	"github.com/aglili/gopaystack/schema"
+	"github.com/aglili/gopaystack/paystack"
+
 	"github.com/stretchr/testify/assert"
 )
 
 func TestInitialisePayment(t *testing.T) {
 	// mock the response
-	Response := schema.TransactionResponse{
+	Response := paystack.TransactionResponse{
 		Status:  true,
 		Message: "Transaction initialized",
 		Data: struct {
@@ -43,7 +43,7 @@ func TestInitialisePayment(t *testing.T) {
 
 	client := paystack.NewClient("sk_test_1234567890")
 
-	req := &schema.InitializeTransactionRequest{
+	req := &paystack.InitializeTransactionRequest{
 		Reference:   "9k2f3k4",
 		Amount:      10000,
 		Email:       "test@test.com",
@@ -64,7 +64,7 @@ func TestInitialisePayment(t *testing.T) {
 
 func TestVerifyTransaction(t *testing.T){
 	// mock the response
-	Response := schema.VerifyTransactionResponse{
+	Response := paystack.VerifyTransactionResponse{
 		Status:  true,
 		Message: "Transaction fetched",
 		Data: struct {
@@ -110,7 +110,7 @@ func TestVerifyTransaction(t *testing.T){
 
 func TestListTransactions(t *testing.T)  {
 	// mock the response
-	Response := schema.ListTransactionsResponse{
+	Response := paystack.ListTransactionsResponse{
 		Status:  true,
 		Message: "Transactions fetched",
 		Data: []struct {
@@ -149,7 +149,7 @@ func TestListTransactions(t *testing.T)  {
 
 	client := paystack.NewClient("sk_test_1234567890")
 
-	req := &schema.ListTransactionsRequest{
+	req := &paystack.ListTransactionsRequest{
 		PerPage: 10,
 		Page: 1,
 	}
@@ -172,7 +172,7 @@ func TestListTransactions(t *testing.T)  {
 func TestFetchTransaction(t *testing.T)  {
 
 	// mock the response
-	Response := schema.VerifyTransactionResponse{
+	Response := paystack.VerifyTransactionResponse{
 		Status:  true,
 		Message: "Transaction fetched",
 		Data: struct {

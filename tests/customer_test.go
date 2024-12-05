@@ -7,8 +7,7 @@ import (
 	"testing"
 
 	"github.com/aglili/gopaystack/config"
-	"github.com/aglili/gopaystack/pkg/paystack"
-	"github.com/aglili/gopaystack/schema"
+	"github.com/aglili/gopaystack/paystack"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -18,7 +17,7 @@ import (
 
 func TestCreateCustomer(t *testing.T) {
 	// mock the response
-	Response := schema.CustomerResponse{
+	Response := paystack.CustomerResponse{
 		Status:  true,
 		Message: "Customer created",
 		Data: struct {
@@ -59,7 +58,7 @@ func TestCreateCustomer(t *testing.T) {
 	client := paystack.NewClient("sk_test_1234567890")
 
 
-	req := &schema.CreateCustomerRequest{
+	req := &paystack.CreateCustomerRequest{
 		FirstName: "John",
 		LastName:  "Doe",
 		Email:     "test@test.com",
@@ -80,7 +79,7 @@ func TestCreateCustomer(t *testing.T) {
 
 func TestListCustomers(t *testing.T) {
 	// mock the response
-	Response := schema.ListCustomersResponse{
+	Response := paystack.ListCustomersResponse{
 		Status:  true,
 		Message: "Customers fetched",
 		Data: []struct {
@@ -126,7 +125,7 @@ func TestListCustomers(t *testing.T) {
 
 	client := paystack.NewClient("sk_test_1234567890")
 
-	req := &schema.ListCustomersRequest{
+	req := &paystack.ListCustomersRequest{
 		PerPage: 10,
 	}
 

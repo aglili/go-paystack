@@ -1,4 +1,4 @@
-package schema
+package paystack
 
 // InitializeTransactionRequest represents the body parameters for the InitializeTransaction API.
 type InitializeTransactionRequest struct {

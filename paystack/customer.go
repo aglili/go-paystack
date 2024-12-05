@@ -8,9 +8,7 @@ import (
 	"net/http"
 
 	"github.com/aglili/gopaystack/config"
-	"github.com/aglili/gopaystack/schema"
 )
-
 
 // CreateCustomer creates a new customer
 // It returns the customer details if successful
@@ -36,7 +34,7 @@ import (
 // Returns:
 // - A pointer to a CustomerResponse object containing the created customer details.
 // - An error if any step in the process fails.
-func (c *Client) CreateCustomer(req *schema.CreateCustomerRequest) (*schema.CustomerResponse, error) {
+func (c *Client) CreateCustomer(req *CreateCustomerRequest) (*CustomerResponse, error) {
 	url := config.BaseURL + "/customer"
 
 	payload, err := json.Marshal(req)
@@ -67,7 +65,7 @@ func (c *Client) CreateCustomer(req *schema.CreateCustomerRequest) (*schema.Cust
 		return nil, fmt.Errorf("API error: %s", body)
 	}
 
-	var customerResponse schema.CustomerResponse
+	var customerResponse CustomerResponse
 	err = json.Unmarshal(body, &customerResponse)
 	if err != nil {
 		return nil, fmt.Errorf("error parsing response: %v", err)
@@ -95,7 +93,7 @@ func (c *Client) CreateCustomer(req *schema.CreateCustomerRequest) (*schema.Cust
 //   - If the response body cannot be read.
 //   - If the API returns a non-200 status code.
 //   - If the response body cannot be unmarshalled to ListCustomersResponse.
-func (c *Client) ListCustomers(req *schema.ListCustomersRequest ) (*schema.ListCustomersResponse, error) {
+func (c *Client) ListCustomers(req *ListCustomersRequest ) (*ListCustomersResponse, error) {
 	url := config.BaseURL + "/customer"
 
 	payload, err := json.Marshal(req)
@@ -126,7 +124,7 @@ func (c *Client) ListCustomers(req *schema.ListCustomersRequest ) (*schema.ListC
 		return nil, fmt.Errorf("API error: %s", body)
 	}
 
-	var listCustomersResponse schema.ListCustomersResponse
+	var listCustomersResponse ListCustomersResponse
 	err = json.Unmarshal(body, &listCustomersResponse)
 	if err != nil {
 		return nil, fmt.Errorf("error parsing response: %v", err)
@@ -153,7 +151,7 @@ func (c *Client) ListCustomers(req *schema.ListCustomersRequest ) (*schema.ListC
 //   - If the response body cannot be read.
 //   - If the API returns a non-200 status code.
 //   - If the response body cannot be unmarshalled to a CustomerResponse struct.
-func (c *Client) GetCustomer(customerCodeOrEmail string) (*schema.GetCustomerResponse, error) {
+func (c *Client) GetCustomer(customerCodeOrEmail string) (*GetCustomerResponse, error) {
 	url := config.BaseURL + "/customer/" + customerCodeOrEmail
 
 	request, err := http.NewRequest("GET", url, nil)
@@ -179,7 +177,7 @@ func (c *Client) GetCustomer(customerCodeOrEmail string) (*schema.GetCustomerRes
 		return nil, fmt.Errorf("API error: %s", body)
 	}
 
-	var customerResponse schema.GetCustomerResponse
+	var customerResponse GetCustomerResponse
 	err = json.Unmarshal(body, &customerResponse)
 	if err != nil {
 		return nil, fmt.Errorf("error parsing response: %v", err)
