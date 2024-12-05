@@ -185,3 +185,45 @@ func (c *Client) GetCustomer(customerCodeOrEmail string) (*GetCustomerResponse, 
 
 	return &customerResponse, nil
 }
+
+
+func (c *Client) UpdateCustomer(customerCode string, req *UpdateCustomerRequest) (*CustomerResponse, error) {
+	url := config.BaseURL + "/customer" + customerCode
+
+	payload, err := json.Marshal(req)
+	if err != nil {
+		return nil, fmt.Errorf("error marshaling request: %v", err)
+	}
+
+	request, err := http.NewRequest("PUT", url, bytes.NewBuffer(payload))
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %v", err)
+	}
+
+	request.Header.Set("Authorization", "Bearer"+c.secretKey)
+	request.Header.Set("Content-Type", "application/json")
+
+	response, err := c.httpClient.Do(request)
+	if err != nil {
+		return nil, fmt.Errorf("error making request: %v", err)
+	}
+
+	defer response.Body.Close()
+
+	body, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		return nil, fmt.Errorf("error reading response body: %v", err)
+	}
+
+	if response.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("API error: %s", body)
+	}
+
+	var customerResponse CustomerResponse
+	err = json.Unmarshal(body, &customerResponse)
+	if err != nil {
+		return nil, fmt.Errorf("error parsing response: %v", err)
+	}
+
+	return &customerResponse, nil
+}
