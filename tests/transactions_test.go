@@ -6,9 +6,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/aglili/go-paystack/config"
-	"github.com/aglili/go-paystack/pkg/paystack"
-	"github.com/aglili/go-paystack/schema"
+	"github.com/aglili/go_paystack/config"
+	"github.com/aglili/go_paystack/pkg/paystack"
+	"github.com/aglili/go_paystack/schema"
 	"github.com/stretchr/testify/assert"
 )
 
