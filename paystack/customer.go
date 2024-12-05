@@ -188,7 +188,7 @@ func (c *Client) GetCustomer(customerCodeOrEmail string) (*GetCustomerResponse, 
 
 
 func (c *Client) UpdateCustomer(customerCode string, req *UpdateCustomerRequest) (*CustomerResponse, error) {
-	url := config.BaseURL + "/customer" + customerCode
+	url := config.BaseURL + "/customer/" + customerCode
 
 	payload, err := json.Marshal(req)
 	if err != nil {
