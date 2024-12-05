@@ -7,8 +7,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/aglili/go_paystack/config"
-	"github.com/aglili/go_paystack/schema"
+	"github.com/aglili/gopaystack/config"
+	"github.com/aglili/gopaystack/schema"
 )
 
 // InitializeTransaction initializes a new transaction with the provided request data.

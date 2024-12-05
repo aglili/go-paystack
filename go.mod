@@ -1,4 +1,4 @@
-module github.com/aglili/go_paystack
+module github.com/aglili/gopaystack
 
 go 1.22.2
 
