@@ -37,9 +37,6 @@ func (c Client) CreatePlan(req *CreatePlanRequest) (*PlanResponse, error) {
 		return nil, fmt.Errorf("error reading response: %v", err)
 	}
 
-	fmt.Println(string(body))
-	fmt.Println(response.StatusCode)
-
 	if response.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("error creating plan: %s", body)
 	}
