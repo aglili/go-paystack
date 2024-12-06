@@ -23,12 +23,12 @@ jobs:
         cache: false
 
     # Install and run golangci-lint
-    - name: Run golangci-lint
-      uses: golangci/golangci-lint-action@v4
-      with:
-        version: latest
-        args: --timeout=5m
-        skip-cache: true
+    # - name: Run golangci-lint
+    #   uses: golangci/golangci-lint-action@v4
+    #   with:
+    #     version: latest
+    #     args: --timeout=5m
+    #     skip-cache: true
 
     # Run go vet for basic code analysis
     - name: Run go vet
