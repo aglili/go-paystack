@@ -67,3 +67,11 @@ type GetCustomerResponse struct {
 		} `json:"transactions"`
 	} `json:"data"`
 }
+
+
+type UpdateCustomerRequest struct {
+	FirstName string                 `json:"first_name"`
+	LastName  string                 `json:"last_name"`
+	Phone     string                 `json:"phone,omitempty"`
+	Metadata  map[string]interface{} `json:"metadata,omitempty"`
+}
