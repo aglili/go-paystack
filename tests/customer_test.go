@@ -11,33 +11,28 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-
-
-
-
 func TestCreateCustomer(t *testing.T) {
 	// mock the response
 	Response := paystack.CustomerResponse{
 		Status:  true,
 		Message: "Customer created",
 		Data: struct {
-			ID          int                    `json:"id"`
-			FirstName   string                 `json:"first_name"`
-			LastName    string                 `json:"last_name"`
-			Email       string                 `json:"email"`
-			Phone       string                 `json:"phone"`
-			CustomerCode string                `json:"customer_code"`
-			Metadata    map[string]interface{} `json:"metadata"`
+			ID           int                    `json:"id"`
+			FirstName    string                 `json:"first_name"`
+			LastName     string                 `json:"last_name"`
+			Email        string                 `json:"email"`
+			Phone        string                 `json:"phone"`
+			CustomerCode string                 `json:"customer_code"`
+			Metadata     map[string]interface{} `json:"metadata"`
 		}{
-			ID:    1,
+			ID:           1,
 			CustomerCode: "CUS_1234567890",
-			FirstName:   "John",
-			LastName:    "Doe",
-			Email:       "test@test.com",
-			Phone:       "1234567890",
-		},	
+			FirstName:    "John",
+			LastName:     "Doe",
+			Email:        "test@test.com",
+			Phone:        "1234567890",
+		},
 	}
-
 
 	// create a mock server
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -49,14 +44,11 @@ func TestCreateCustomer(t *testing.T) {
 	},
 	))
 
-
 	defer server.Close()
 
 	config.BaseURL = server.URL
 
-
 	client := paystack.NewClient("sk_test_1234567890")
-
 
 	req := &paystack.CreateCustomerRequest{
 		FirstName: "John",
@@ -76,36 +68,35 @@ func TestCreateCustomer(t *testing.T) {
 	assert.Equal(t, res.Data.LastName, "Doe")
 }
 
-
 func TestListCustomers(t *testing.T) {
 	// mock the response
 	Response := paystack.ListCustomersResponse{
 		Status:  true,
 		Message: "Customers fetched",
 		Data: []struct {
-			ID          int                    `json:"id"`
-			FirstName   string                 `json:"first_name"`
-			LastName    string                 `json:"last_name"`
-			Email       string                 `json:"email"`
-			Phone       string                 `json:"phone"`
-			CustomerCode string                `json:"customer_code"`
-			Metadata    map[string]interface{} `json:"metadata"`
+			ID           int                    `json:"id"`
+			FirstName    string                 `json:"first_name"`
+			LastName     string                 `json:"last_name"`
+			Email        string                 `json:"email"`
+			Phone        string                 `json:"phone"`
+			CustomerCode string                 `json:"customer_code"`
+			Metadata     map[string]interface{} `json:"metadata"`
 		}{
 			{
-				ID:    1,
+				ID:           1,
 				CustomerCode: "CUS_1234567890",
-				FirstName:   "John",
-				LastName:    "Doe",
-				Email:       "test@test.com",
-				Phone:       "1234567890",
+				FirstName:    "John",
+				LastName:     "Doe",
+				Email:        "test@test.com",
+				Phone:        "1234567890",
 			},
 			{
-				ID:    2,
+				ID:           2,
 				CustomerCode: "CUS_0987654321",
-				FirstName:   "Jane",
-				LastName:    "Doe",
-				Email:       "jane@test.com",
-				Phone:       "0987654321",
+				FirstName:    "Jane",
+				LastName:     "Doe",
+				Email:        "jane@test.com",
+				Phone:        "0987654321",
 			},
 		},
 	}
@@ -141,5 +132,3 @@ func TestListCustomers(t *testing.T) {
 	assert.Equal(t, res.Data[0].LastName, "Doe")
 	assert.Equal(t, res.Data[1].ID, 2)
 }
-
-

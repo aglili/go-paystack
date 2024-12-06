@@ -74,8 +74,6 @@ func (c *Client) CreateCustomer(req *CreateCustomerRequest) (*CustomerResponse, 
 	return &customerResponse, nil
 }
 
-
-
 // ListCustomers retrieves a list of customers from the Paystack API.
 // It sends a GET request to the /customer endpoint with the provided request payload.
 //
@@ -93,7 +91,7 @@ func (c *Client) CreateCustomer(req *CreateCustomerRequest) (*CustomerResponse, 
 //   - If the response body cannot be read.
 //   - If the API returns a non-200 status code.
 //   - If the response body cannot be unmarshalled to ListCustomersResponse.
-func (c *Client) ListCustomers(req *ListCustomersRequest ) (*ListCustomersResponse, error) {
+func (c *Client) ListCustomers(req *ListCustomersRequest) (*ListCustomersResponse, error) {
 	url := config.BaseURL + "/customer"
 
 	payload, err := json.Marshal(req)
@@ -132,8 +130,6 @@ func (c *Client) ListCustomers(req *ListCustomersRequest ) (*ListCustomersRespon
 
 	return &listCustomersResponse, nil
 }
-
-
 
 // GetCustomer retrieves a customer by email or customer code from the Paystack API.
 // It sends a GET request to the /customer/:email_or_code endpoint.

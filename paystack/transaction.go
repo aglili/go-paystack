@@ -72,8 +72,6 @@ func (c *Client) InitializeTransaction(req *InitializeTransactionRequest) (*Tran
 	return &transactionResponse, nil
 }
 
-
-
 // VerifyTransaction verifies a transaction on Paystack using the provided reference.
 // It sends a GET request to the Paystack API and returns the transaction details.
 //
@@ -123,8 +121,6 @@ func (c *Client) VerifyTransaction(reference string) (*VerifyTransactionResponse
 	return &transactionResponse, nil
 }
 
-
-
 // ListTransactions retrieves a list of transactions from the Paystack API.
 // It sends a GET request to the /transaction endpoint with the provided request payload.
 //
@@ -141,7 +137,6 @@ func (c *Client) ListTransactions(req *ListTransactionsRequest) (*ListTransactio
 	if err != nil {
 		return nil, fmt.Errorf("error marshalling request: %v", err)
 	}
-
 
 	//create a new request
 	request, err := http.NewRequest("GET", url, bytes.NewBuffer(payload))
@@ -172,8 +167,6 @@ func (c *Client) ListTransactions(req *ListTransactionsRequest) (*ListTransactio
 	return &listTransactionsResponse, nil
 }
 
-
-
 // FetchTransaction retrieves the details of a transaction from Paystack using the provided reference.
 // It sends a GET request to the Paystack API and returns the transaction details.
 //
@@ -185,12 +178,13 @@ func (c *Client) ListTransactions(req *ListTransactionsRequest) (*ListTransactio
 //   - error: An error object if an error occurred during the request or response parsing.
 //
 // Example:
-//   transaction, err := client.FetchTransaction("transaction_reference")
-//   if err != nil {
-//       log.Fatalf("Error fetching transaction: %v", err)
-//   }
-//   fmt.Printf("Transaction details: %+v\n", transaction)
-func (c *Client) FetchTransaction(reference string) (*VerifyTransactionResponse, error) {	
+//
+//	transaction, err := client.FetchTransaction("transaction_reference")
+//	if err != nil {
+//	    log.Fatalf("Error fetching transaction: %v", err)
+//	}
+//	fmt.Printf("Transaction details: %+v\n", transaction)
+func (c *Client) FetchTransaction(reference string) (*VerifyTransactionResponse, error) {
 	url := fmt.Sprintf("%s/transaction/%s", config.BaseURL, reference)
 
 	//create a new request
@@ -229,5 +223,3 @@ func (c *Client) FetchTransaction(reference string) (*VerifyTransactionResponse,
 
 	return &transactionResponse, nil
 }
-
-

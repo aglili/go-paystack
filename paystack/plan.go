@@ -10,9 +10,6 @@ import (
 	"github.com/aglili/gopaystack/config"
 )
 
-
-
-
 func (c Client) CreatePlan(req *CreatePlanRequest) (*PlanResponse, error) {
 	url := config.BaseURL + "/plan"
 
@@ -40,7 +37,6 @@ func (c Client) CreatePlan(req *CreatePlanRequest) (*PlanResponse, error) {
 		return nil, fmt.Errorf("error reading response: %v", err)
 	}
 
-
 	fmt.Println(string(body))
 	fmt.Println(response.StatusCode)
 
@@ -57,4 +53,36 @@ func (c Client) CreatePlan(req *CreatePlanRequest) (*PlanResponse, error) {
 	return &planResponse, nil
 }
 
+func (c Client) ListPlans() (*ListPlansResponse, error) {
+	url := config.BaseURL + "/plan"
 
+	request, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %v", err)
+	}
+
+	request.Header.Set("Authorization", "Bearer "+c.secretKey)
+
+	response, err := c.httpClient.Do(request)
+	if err != nil {
+		return nil, fmt.Errorf("error making request: %v", err)
+	}
+	defer response.Body.Close()
+
+	body, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		return nil, fmt.Errorf("error reading response: %v", err)
+	}
+
+	if response.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("error listing plans: %s", body)
+	}
+
+	var listPlansResponse ListPlansResponse
+	err = json.Unmarshal(body, &listPlansResponse)
+	if err != nil {
+		return nil, fmt.Errorf("error unmarshalling response: %v", err)
+	}
+
+	return &listPlansResponse, nil
+}

@@ -61,22 +61,21 @@ func TestInitialisePayment(t *testing.T) {
 
 }
 
-
-func TestVerifyTransaction(t *testing.T){
+func TestVerifyTransaction(t *testing.T) {
 	// mock the response
 	Response := paystack.VerifyTransactionResponse{
 		Status:  true,
 		Message: "Transaction fetched",
 		Data: struct {
-			Amount           int    `json:"amount"`
-			TransactionDate  string `json:"transaction_date"`
+			Amount            int    `json:"amount"`
+			TransactionDate   string `json:"transaction_date"`
 			TransactionStatus string `json:"status"`
-			Reference        string `json:"reference"`
+			Reference         string `json:"reference"`
 		}{
-			Amount:           10000,
-			TransactionDate:  "2020-12-12T12:12:12",
+			Amount:            10000,
+			TransactionDate:   "2020-12-12T12:12:12",
 			TransactionStatus: "success",
-			Reference:        "9k2f3k4",
+			Reference:         "9k2f3k4",
 		},
 	}
 
@@ -106,9 +105,7 @@ func TestVerifyTransaction(t *testing.T){
 	assert.Equal(t, res.Data.TransactionDate, "2020-12-12T12:12:12")
 }
 
-
-
-func TestListTransactions(t *testing.T)  {
+func TestListTransactions(t *testing.T) {
 	// mock the response
 	Response := paystack.ListTransactionsResponse{
 		Status:  true,
@@ -151,7 +148,7 @@ func TestListTransactions(t *testing.T)  {
 
 	req := &paystack.ListTransactionsRequest{
 		PerPage: 10,
-		Page: 1,
+		Page:    1,
 	}
 
 	res, err := client.ListTransactions(req)
@@ -164,27 +161,25 @@ func TestListTransactions(t *testing.T)  {
 	assert.Equal(t, res.Data[0].TransactionDate, "2020-12-12T12:12:12")
 	assert.Equal(t, res.Data[0].Amount, 10000)
 	assert.Equal(t, res.Data[0].Currency, "NGN")
-	assert.Equal(t, res.Data[0].Channel, "card")	
+	assert.Equal(t, res.Data[0].Channel, "card")
 }
 
-
-
-func TestFetchTransaction(t *testing.T)  {
+func TestFetchTransaction(t *testing.T) {
 
 	// mock the response
 	Response := paystack.VerifyTransactionResponse{
 		Status:  true,
 		Message: "Transaction fetched",
 		Data: struct {
-			Amount           int    `json:"amount"`
-			TransactionDate  string `json:"transaction_date"`
+			Amount            int    `json:"amount"`
+			TransactionDate   string `json:"transaction_date"`
 			TransactionStatus string `json:"status"`
-			Reference        string `json:"reference"`
+			Reference         string `json:"reference"`
 		}{
-			Amount:           10000,
-			TransactionDate:  "2020-12-12T12:12:12",
+			Amount:            10000,
+			TransactionDate:   "2020-12-12T12:12:12",
 			TransactionStatus: "success",
-			Reference:        "9k2f3k4",
+			Reference:         "9k2f3k4",
 		},
 	}
 
@@ -213,5 +208,5 @@ func TestFetchTransaction(t *testing.T)  {
 	assert.Equal(t, res.Data.TransactionStatus, "success")
 	assert.Equal(t, res.Data.TransactionDate, "2020-12-12T12:12:12")
 	assert.NotEqual(t, res.Data.TransactionDate, "2020-12-12T12:12:13")
-	
+
 }
