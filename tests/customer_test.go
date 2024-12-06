@@ -136,7 +136,7 @@ func TestListCustomers(t *testing.T) {
 
 func TestGetCustomer(t *testing.T) {
 	customerCodeOrEmail := "CUS_1234567890"
-	
+
 	Response := paystack.GetCustomerResponse{
 		Status:  true,
 		Message: "Customer fetched",
@@ -230,28 +230,27 @@ func TestGetCustomer(t *testing.T) {
 	assert.Equal(t, res.Data.Transaction[1].ID, 2)
 }
 
-
 func TestUpdateCustomer(t *testing.T) {
 	customerCode := "CUS_1234567890"
 
-	Response := paystack.CustomerResponse {
-		Status: true,
+	Response := paystack.CustomerResponse{
+		Status:  true,
 		Message: "Customer updated",
 		Data: struct {
-			ID int `json:"id"`
-			FirstName string `json:"first_name"`
-			LastName string `json:"last_name"`
-			Email string `json:"email"`
-			Phone string `json:"phone"`
-			CustomerCode string `json:"customer_code"`
-			Metadata map[string]interface{} `json:"metadata"`
+			ID           int                    `json:"id"`
+			FirstName    string                 `json:"first_name"`
+			LastName     string                 `json:"last_name"`
+			Email        string                 `json:"email"`
+			Phone        string                 `json:"phone"`
+			CustomerCode string                 `json:"customer_code"`
+			Metadata     map[string]interface{} `json:"metadata"`
 		}{
-			ID: 1,
+			ID:           1,
 			CustomerCode: "CUS_1234567890",
-			FirstName: "Jane",
-			LastName: "Smith",
-			Email: "test@test.com",
-			Phone: "54481255651",
+			FirstName:    "Jane",
+			LastName:     "Smith",
+			Email:        "test@test.com",
+			Phone:        "54481255651",
 		},
 	}
 
@@ -271,8 +270,8 @@ func TestUpdateCustomer(t *testing.T) {
 
 	req := &paystack.UpdateCustomerRequest{
 		FirstName: "Jane",
-		LastName: "Smith",
-		Phone: "54481255651",
+		LastName:  "Smith",
+		Phone:     "54481255651",
 	}
 
 	res, err := client.UpdateCustomer(customerCode, req)
