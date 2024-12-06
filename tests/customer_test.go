@@ -134,6 +134,7 @@ func TestListCustomers(t *testing.T) {
 	assert.Equal(t, res.Data[1].ID, 2)
 }
 
+
 func TestGetCustomer(t *testing.T) {
 	customerCodeOrEmail := "CUS_1234567890"
 
@@ -285,3 +286,4 @@ func TestUpdateCustomer(t *testing.T) {
 	assert.Equal(t, res.Data.LastName, "Smith")
 	assert.Equal(t, res.Data.Phone, "54481255651")
 }
+
