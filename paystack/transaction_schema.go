@@ -25,25 +25,24 @@ type VerifyTransactionResponse struct {
 	Status  bool   `json:"status"`
 	Message string `json:"message"`
 	Data    struct {
-		Amount           int    `json:"amount"`
-		TransactionDate  string `json:"transaction_date"`
+		Amount            int    `json:"amount"`
+		TransactionDate   string `json:"transaction_date"`
 		TransactionStatus string `json:"status"`
-		Reference        string `json:"reference"`
+		Reference         string `json:"reference"`
 	} `json:"data"`
 }
 
-
 // ListTransactionsRequest represents the body parameters for the ListTransactions API.
 type ListTransactionsRequest struct {
-	PerPage int `json:"perPage,omitempty"`
-	Page    int `json:"page,omitempty"`
+	PerPage int    `json:"perPage,omitempty"`
+	Page    int    `json:"page,omitempty"`
 	From    string `json:"from,omitempty"`
 	To      string `json:"to,omitempty"`
 }
 
 // ListTransactionsResponse represents the response body for the ListTransactions API.
 type ListTransactionsResponse struct {
-	Status  bool `json:"status"`
+	Status  bool   `json:"status"`
 	Message string `json:"message"`
 	Data    []struct {
 		ID              int    `json:"id"`
